@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\dev\projects\vulkancppwindowedprogram1\vulkancppwindowedprogram1\main.cpp(333): warning C4244: 'argument': conversion from 'uint32_t' to 'float', possible loss of data
+d:\dev\projects\vulkancppwindowedprogram1\vulkancppwindowedprogram1\main.cpp(334): warning C4244: 'argument': conversion from 'uint32_t' to 'float', possible loss of data
+  VulkanCppWindowedProgram1.vcxproj -> D:\Dev\Projects\VulkanCppWindowedProgram1\Debug\VulkanCppWindowedProgram1.exe
