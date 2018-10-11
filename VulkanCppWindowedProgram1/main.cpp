@@ -324,7 +324,7 @@ int main()
 		.setPVertexAttributeDescriptions(nullptr);
 
 	vk::PipelineInputAssemblyStateCreateInfo inputAssemblyInfo = vk::PipelineInputAssemblyStateCreateInfo()
-		.setTopology(vk::PrimitiveTopology::eTriangleList)
+		.setTopology(vk::PrimitiveTopology::eTriangleFan)
 		.setPrimitiveRestartEnable(VK_FALSE);
 
 	vk::Viewport viewport = vk::Viewport()
@@ -497,7 +497,7 @@ int main()
 
 		commandBuffers[i].beginRenderPass(renderPassInfo, vk::SubpassContents::eInline);
 		commandBuffers[i].bindPipeline(vk::PipelineBindPoint::eGraphics, graphicsPipeline);
-		commandBuffers[i].draw(3, 1, 0, 0);
+		commandBuffers[i].draw(4, 1, 0, 0);
 		commandBuffers[i].endRenderPass();
 		commandBuffers[i].end();
 	}
@@ -567,11 +567,31 @@ int main()
 
 	// Clean up.
 
+	for (const auto& imageView : swapchainImageViews)
+	{
+		logicalDevice.destroyImageView(imageView);
+	}
+
+	for (const auto& framebuffer : swapchainFramebuffers)
+	{
+		logicalDevice.destroyFramebuffer(framebuffer);
+	}
+
+	logicalDevice.destroyShaderModule(vertexShaderModule);
+	logicalDevice.destroyShaderModule(fragmentShaderModule);
+
+	logicalDevice.destroyCommandPool(commandPool);
+
+	logicalDevice.destroySemaphore(imageAvailable);
+	logicalDevice.destroySemaphore(renderFinished);
+
 	logicalDevice.destroyPipeline(graphicsPipeline);
 
 	logicalDevice.destroyPipelineLayout(pipelineLayout);
 
 	logicalDevice.destroyRenderPass(renderPass);
+
+	logicalDevice.destroySwapchainKHR(swapchain);
 
 	instance.destroySurfaceKHR(surface);
 
